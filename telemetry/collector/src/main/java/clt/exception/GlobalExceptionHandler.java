@@ -87,7 +87,7 @@ public class GlobalExceptionHandler {
 
     private void logInfo(Throwable ex, HttpServletRequest request) {
         log.info("Исключение было обработано: {}, {}", ex.getClass().getSimpleName(), formatRequestInfo(request));
-        log.debug("Детали исключения: ", ex);
+        log.debug("Детали исключения: {}, {}", formatRequestInfo(request), ex.getMessage());
     }
 
     private String formatRequestInfo(HttpServletRequest request) {
