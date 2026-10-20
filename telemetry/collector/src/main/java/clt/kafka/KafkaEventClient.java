@@ -1,5 +1,6 @@
 package clt.kafka;
 
+import clt.config.TelemetryProperties;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -12,7 +13,12 @@ import java.util.Properties;
 @Component
 public class KafkaEventClient {
 
+    private final TelemetryProperties properties;
     private Producer<Void, SpecificRecordBase> producer;
+
+    public KafkaEventClient(TelemetryProperties properties) {
+        this.properties = properties;
+    }
 
     public Producer<Void, SpecificRecordBase> getProducer() {
         if (producer == null) {
@@ -27,7 +33,7 @@ public class KafkaEventClient {
 
     private Properties getConfig() {
         Properties config = new Properties();
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrap());
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, VoidSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, EventAvroSerializer.class);
         return config;

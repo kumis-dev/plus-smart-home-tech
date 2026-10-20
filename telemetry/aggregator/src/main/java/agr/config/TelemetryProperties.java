@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class TelemetryProperties {
 
     private String bootstrap;
-
+    private String groupId;
     private Sensors sensors = new Sensors();
     private Snapshots snapshots = new Snapshots();
 

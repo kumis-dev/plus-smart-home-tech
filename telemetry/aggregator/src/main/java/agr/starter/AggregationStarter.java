@@ -106,8 +106,8 @@ public class AggregationStarter {
     private Properties getConsumerProperties() {
         Properties consumerProperties = new Properties();
         consumerProperties.put(ConsumerConfig.CLIENT_ID_CONFIG, "aggregator");
-        consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, "telemetry.aggregator");
-        consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, properties.getGroupId());
+        consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrap());
         consumerProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getCanonicalName());
         consumerProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, SensorEventDeserializer.class.getCanonicalName());
         consumerProperties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
@@ -118,7 +118,7 @@ public class AggregationStarter {
     private Properties getProducerProperties() {
         Properties producerProperties = new Properties();
         producerProperties.put(ProducerConfig.CLIENT_ID_CONFIG, "aggregator");
-        producerProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        producerProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrap());
         producerProperties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getCanonicalName());
         producerProperties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, EventAvroSerializer.class.getCanonicalName());
 
